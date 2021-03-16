@@ -3,7 +3,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
+import { PieData } from "../types";
 
 export default defineComponent({
   name: "PieChart",
@@ -12,11 +13,16 @@ export default defineComponent({
       type: String,
       default: ""
     },
-    pieData: []
+    pieData: Object as PropType<PieData>
   },
   computed: {
     pieStyle() {
-      return { background: "conic-gradient()" };
+      let sum = 0;
+      const styles: any = this.pieData?.pieDataPoints.map(
+        piePart => `${piePart.color} 0 ${(sum += piePart.value)}%`
+      );
+
+      return { background: "conic-gradient(" + styles.join(",") + ")" };
     }
   }
 });
@@ -28,5 +34,6 @@ export default defineComponent({
   height: 500px;
   border-radius: 50%;
   border: 5px solid #000000;
+  // background: conic-gradient(#002fff 0 30%, #fe0000 0 70%, #00fe00 0 100%);
 }
 </style>

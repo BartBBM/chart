@@ -7,6 +7,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import PieChart from "@/components/PieChart.vue"; // @ is an alias to /src
+import { PieData } from "../types";
 
 export default defineComponent({
   name: "About",
@@ -15,11 +16,14 @@ export default defineComponent({
   },
   data() {
     return {
-      pieData: [
-        { color: "#0B6487", value: 30 },
-        { color: "#9D1F37", value: 30 },
-        { color: "#F6931C", value: 40 }
-      ]
+      pieData: {
+        type: PieData,
+        default: [
+          { color: "#0B6487", value: 30 },
+          { color: "#9D1F37", value: 30 },
+          { color: "#F6931C", value: 40 }
+        ]
+      }
     };
   }
 });
